@@ -1,4 +1,4 @@
-"use client"
+/**"use client"
 
 import { useState, useEffect } from "react"
 import AnimatedBackground from "../components/AnimatedComponent"
@@ -23,4 +23,31 @@ export default function Home() {
     </div>
   )
 }
+**/
+"use client"
 
+import { useState, useEffect } from "react"
+import AnimatedBackground from "../components/AnimatedComponent"
+import LoginForm from "../components/LoginForm"
+import Pattern from "../components/Pattern"
+
+export default function Home() {
+  const [showLogin, setShowLogin] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowLogin(true), 2000) // Show login after 2 seconds
+    return () => clearTimeout(timer)
+  }, [])
+
+  return (
+    <div className="relative w-full h-screen">
+      <Pattern />
+      <AnimatedBackground />
+      <div
+        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${showLogin ? "opacity-100" : "opacity-0"}`}
+      >
+        <LoginForm />
+      </div>
+    </div>
+  )
+}

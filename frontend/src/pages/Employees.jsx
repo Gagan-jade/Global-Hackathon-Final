@@ -17,10 +17,15 @@ function EmployeePage() {
             })
     }, [])
 
-    const handleRemoveEmployee = (empid) => {
-        // Implement remove employee logic here
-        console.log(`Remove employee with ID: ${empid}`)
-    }
+    const handleRemoveEmployee = async (empid) => {
+        try {
+            await axios.delete(`http://localhost:8080/api/employee/delete/${empid}`);
+            setEmployees((prevEmployees) => prevEmployees.filter(employee => employee.empid !== empid));
+        } catch (err) {
+            console.error("Error deleting employee", err);
+        }
+    };
+    
 
     const filteredEmployees = employees.filter(employee =>
         employee.empname.toLowerCase().includes(searchTerm.toLowerCase()) ||
